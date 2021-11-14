@@ -37,3 +37,25 @@ function displayConstituency(event) {
     var constituency = event.feature.getProperty("Alias");
     infobox.textContent = constituency;
 }
+
+//show position on the map
+function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    var latlng = { lat: lat, lng: lng };
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+    });
+    map.setCenter(latlng);
+}
+
+//place marker given a lat and lng
+function placeMarker(lat, lng) {
+    var latlng = { lat: lat, lng: lng };
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+    });
+    map.setCenter(latlng);
+}
