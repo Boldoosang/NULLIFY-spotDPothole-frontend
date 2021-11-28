@@ -1,5 +1,5 @@
 let username
-const SERVER = "https://spotdpothole.herokuapp.com"
+const SERVER = "http://spotdpothole.herokuapp.com"
 const PICONG_SERVER = "https://project-caigual.herokuapp.com/publicAPI/info/electoraldistrict" //?year=2020&district=ari
 const ELECTION_YEAR = "2020"
 
@@ -19,7 +19,8 @@ async function sendRequest(url, method, data){
                 "method" : method,
                 "headers" : {
                     "Authorization" : `Bearer ${access_token}`,
-                    "Content-Type" : "application/json"
+                    "Content-Type" : "application/json",
+                    "mode": 'cors',
                 }
             }
             request.body = JSON.stringify(data);
@@ -247,4 +248,5 @@ async function loadConstituencyData(constituencyID){
 
     councillorInformationArea.innerHTML = councillorInformation
 }
+
 
