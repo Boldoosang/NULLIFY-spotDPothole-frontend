@@ -85,8 +85,8 @@ async function makeRequest(photoURL = null, url) {
     console.log( JSON.stringify(data) );
 
     try {
-      //let access_token = window.localStorage.getItem("access_token");
-      let access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzODEzODY3NSwianRpIjoiODIwMjExYjMtYTllMC00YzZiLTg3YTctNGFhOWY3NWMzMDM3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RlcjNAeWFob28uY29tIiwibmJmIjoxNjM4MTM4Njc1LCJleHAiOjE2MzgxMzk1NzV9.eEJnxB-jjkD0-eO2rcbEn1qePCyNKjFrZA0kZOnzZ_A"
+      let access_token = window.localStorage.getItem("access_token");
+      //let access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzODEzODY3NSwianRpIjoiODIwMjExYjMtYTllMC00YzZiLTg3YTctNGFhOWY3NWMzMDM3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RlcjNAeWFob28uY29tIiwibmJmIjoxNjM4MTM4Njc1LCJleHAiOjE2MzgxMzk1NzV9.eEJnxB-jjkD0-eO2rcbEn1qePCyNKjFrZA0kZOnzZ_A"
 
 
       let request = {
