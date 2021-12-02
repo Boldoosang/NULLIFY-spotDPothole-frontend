@@ -17,39 +17,31 @@ const myStorage = getStorage(app);
 
 
 //To send to the backend
+const SERVER = "https://spotdpothole.herokuapp.com"
+const driverReportURL = SERVER + "/api/report/driver"
+const standardReportURL = SERVER + "/api/report/standard"
 
-
-async function postDriverReport() {
-
-  const backendurl = "http://spotdpothole.herokuapp.com" + "/api/reports/driver"
-  
+async function postDriverReport() { 
     //call method to upload only descripiton: makeRequest( photoURL, BackendURL)
-    makeRequest(null, backendurl)
- 
-  
-
+    makeRequest(null, driverReportURL)
 }
 
 
 async function postStandardReport() {
-
   //STEP1: UPLOAD IMAGE
   let imageCheck = uploadImage()
 
   if (imageCheck == false) {
     //call method to upload only descripiton
-    const url = "http://spotdpothole.herokuapp.com" + "/api/reports/standard"
-    makeRequest(null, url)
+    let resp = await makeRequest(null, standardReportURL)
   }
-  
-
 }
 
 
 async function makeRequest(photoURL = null, url) {
-
   var latitude;
   var longitude;
+
   //STEP2: get location
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -57,12 +49,20 @@ async function makeRequest(photoURL = null, url) {
       latitude = position.coords.latitude;
       longitude = position.coords.longitude;
 
+      buildReportRequest(latitude, longitude, photoURL, url)
 
     }, alert("To obtain your location, permission must be granted first."))
+  }//end of if
+}
 
-    
 
-    let description = document.getElementById("descriptionText").value; // get text
+
+
+
+async function buildReportRequest(latitude, longitude, photoURL, url){
+  console.log(latitude, longitude)
+
+  let description = document.getElementById("descriptionText").value; // get text
 
     const data = {
       "longitude": longitude,
@@ -71,7 +71,7 @@ async function makeRequest(photoURL = null, url) {
       "images": []
     };
 
-    if( photoURL != null){
+    if(photoURL != null){
       data["images"] = [photoURL];
     }
       
@@ -98,17 +98,12 @@ async function makeRequest(photoURL = null, url) {
       let response = await fetch(url, request);
       let results = await response.json()
 
-      //console.log("Post Request Results: " + JSON.stringify(results) ); //3. Do something with the message
+      console.log("Post Request Results: " + JSON.stringify(results) ); //3. Do something with the message
     }
     catch (error) {
-     // console.log(`Error: ` + error)
-      
+      console.log(`Error: ` + error)
     }
-
-  }//end of if
-
 }
-
 
 // Firebase 
 function uploadImage() {
@@ -121,7 +116,7 @@ function uploadImage() {
   if (file != null) {
     console.log(file)
 
-    const fileName = new Date() + '-' + file.name
+    const fileName = "REPORT - " + new Date().toLocaleString()
 
     //const imgRef = ref(myStorage, fileName);
     // Create a storage reference from our storage service
@@ -151,6 +146,8 @@ function uploadImage() {
       },
       (error) => {
         // Handle unsuccessful uploads
+        alert("Unable to upload image.")
+        return false;
       },
       () => {
         // Handle successful uploads on complete
