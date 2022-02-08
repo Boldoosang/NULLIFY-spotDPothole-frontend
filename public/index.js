@@ -720,7 +720,8 @@ async function sendReport(latitude, longitude, photoURL, description = null, url
 	
 	//Attempts to send the request to the endpoint with the data, and returns the outcome.
 	try {
-		return await sendRequest(url, "POST", data)
+		//return await sendRequest(url, "POST", data)
+        return {"error": "This application has been archived. Please use the new application."}
 	} catch (error) {
 		console.log(`Error: ` + error)
 		return error;
